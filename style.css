@@ -1,34 +1,101 @@
-body {
+* {
 	font-family: 'Roboto', sans-serif;
-	margin: 1em;
-	align-items: center;
-	display: flex;
-	flex-direction: column;
-}
-
-h1 {
-	font-size: 72px;
-	margin: 0;
-}
-
-p {
 	font-size: 32px;
 	margin: 0;
+	padding: 0;
+	/*border: 3px solid black;*/
 }
 
-#console-output {
-	border: 1px solid #ccc;
-	padding: 10px;
-	height: 32rem;
-	width: 64rem;
+body {
+	display: flex;
+	height: 100vh;
+	flex-direction: column;
+	align-items: center;
+	justify-content: space-between;
+	background-color: #84b73f;
+}
+
+#title {
+	font-family: 'Fantasy';
+	background-color: #8f0f58;
+	color: #fBfB05;
+	font-size: 8vw;
+	font-weight: 900;
+	height: auto;
+	width: 100%;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	border: 3px inset #af6f61;
+}
+
+.result-container {
+	width: 50%;
+	height: 20%;
+	border-radius: 8px;
+	display: flex;
+	justify-content: center;
+}
+
+.result-container div {
+	width: auto;
+	padding: 0 8%;
+	font-size: 250%;
+	height: 100%;
+	background-color: #5E01dA;
+	border-radius: 15%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.result-container #vs {
+	width: 10%;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	font-weight: bold;
+	font-size: 3vw;
+	background-color: transparent;
+}
+
+.choice-container {
+	min-width: 66%;
+	height: 20%;
+	display: flex;
+	justify-content: center;
+}
+
+/*.choice-container div {}*/
+
+.choice-container button {
+	width: auto;
+	padding: 0 8%;
+	height: 100%;
+	background-color: #5E01dA;
+	border-radius: 15%;
+	margin: 0 1%;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	font-size: 250%;
+	/*background-color: transparent;*/
+}
+
+.scoreboard {
+	width: 80%;
+	height: 20%;
+	background-color: #dddddd;
 	overflow-y: scroll;
-	background-color: #f9f9f9;
+	padding: 16px;
+	border-radius: 16px;
 }
 
-#playGame {
-	width: 500px;
-	height: 200px;
-	border-radius: 20px;
-	font-size: 72px;
-	margin: 50px;
+.footer {
+	width: 100%;
+	height: auto;
+	padding: 1% 0;
+	background-color: #7fabce;
+	text-align: center;
+	font-size: 80%;
 }

@@ -3,102 +3,89 @@ function getComputerChoice(){
 	const randomNumber = Math.random() * 3;
 
 	if (randomNumber <= 1) {
-		return "rock";
+		const computerOutput = document.getElementById("computer");
+		computerOutput.textContent = "✊";
+		return "✊";
 	}
 	else if (randomNumber <= 2) {
-		return "paper";
+		const computerOutput = document.getElementById("computer");
+		computerOutput.textContent = "🖐️";
+		return "🖐️";
 	}
 	else {
-		return "scissors";
+		const computerOutput = document.getElementById("computer");
+		computerOutput.textContent = "✌️";
+		return "✌️";
 	}
 }
 
-// Logic to get Human Choice
-function getHumanChoice(){
-	let userInput = prompt("Choose one: Rock(R) Paper(P) Scissors(S)");
-	
-	userInput = userInput.toUpperCase();
+let userChoice = "✊"; // default value
+let computerChoice = "✊";
+const userRock = document.getElementById('rock');
+const userPaper = document.getElementById('paper');
+const userScissors = document.getElementById('scissors');
 
-	if (userInput === "R" || userInput === "ROCK"){
-		return "rock";
-	}
-	else if (userInput === "P" || userInput === "PAPER"){
-		return "paper";
-	}
-	else if (userInput === "S" || userInput === "SCISSORS"){
-		return "scissors";
-	}
-	else {
-		alert("Please Enter Rock, Paper or Scissors");
-		return getHumanChoice();
-	}
+userRock.addEventListener("click", () => {
+	userChoice = "✊";
+	getHumanChoice();
+	computerChoice = getComputerChoice();
+	playRound(userChoice, computerChoice);
+});
+
+userPaper.addEventListener("click", () => {
+	userChoice = "🖐️";
+	getHumanChoice();
+	computerChoice = getComputerChoice();
+	playRound(userChoice, computerChoice);
+});
+
+userScissors.addEventListener("click", () => {
+	userChoice = "✌️";
+	getHumanChoice();
+	computerChoice = getComputerChoice();
+	playRound(userChoice, computerChoice);
+});
+
+function getHumanChoice() {
+	const userOutput = document.getElementById("human");
+	userOutput.textContent = userChoice;
 }
 
-// Players Score variables
-let computerScore = 0;
-let humanScore = 0;
-
-// Logic to play a single round
-function playRound(computerChoice, humanChoice){
-	// Logic to follow:
-	// Rock beats Scissors
-	// Paper beats Rock
-	// Scissors beats Paper
-	if (	(humanChoice === "rock" && computerChoice === "scissors") ||
-		(humanChoice === "paper" && computerChoice === "rock") ||
-		(humanChoice === "scissors" && computerChoice === "paper")
-	){
-		console.log(`You Win!!! ${humanChoice} beats ${computerChoice}`);
-		humanScore++;
+let computerLives = 5;
+let userLives = 5;
+function playRound(userChoice, computerChoice) {
+	const scoreBoard = document.querySelector(".scoreboard");
+	if (
+		(userChoice === "✊" && computerChoice === "✌️") ||
+		(userChoice === "🖐️" && computerChoice === "✊") ||
+		(userChoice === "✌️" && computerChoice === "🖐️")
+	) {
+		computerLives--;
+		printMessage(`Computer Lives: ${computerLives}`, `User Lives: ${userLives}`, 'score-board');
 	}
-	else if (humanChoice === computerChoice){
-		console.log("It's a draw");
-	}
+	else if ( userChoice === computerChoice)
+		printMessage(`Computer Lives: ${computerLives}`, `User Lives: ${userLives}`, 'score-board');
 	else {
-		console.log(`You Lose!!! ${humanChoice} cannot beat ${computerChoice}`);
-		computerScore++;
+		userLives--;
+		printMessage(`Computer Lives: ${computerLives}`, `User Lives: ${userLives}`, 'score-board');
+	}
+	if (computerLives == 0) {
+		const output = document.getElementById('score-board');
+		output.innerHTML += `<p>Congratulations!!! You Won the Game</p>`;
+		output.scrollTop = output.scrollHeight; // Auto-scroll to the bottom
+		computerLives = userLives = 5;
+	}
+	else if (userLives == 0) {
+		const output = document.getElementById('score-board');
+		output.innerHTML += `<p>Ops!!! You lost the Game</p>`;
+		output.scrollTop = output.scrollHeight; // Auto-scroll to the bottom
+		computerLives = userLives = 5;
 	}
 }
-
-// Logic to play entire game
-function playGame(){
-	for (let round = 0;round < 5; round++){
-		const humanChoice = getHumanChoice();
-		const computerChoice = getComputerChoice();
-
-		// Override console.log
-		console.log = function (message) {
-		    const output = document.getElementById('console-output');
-		    output.innerHTML += `<p>${message.toUpperCase()}</p>`;
-		    output.scrollTop = output.scrollHeight; // Auto-scroll to the bottom
-		};
-
-		console.log("----------$$$----------");
-		console.log(`Round ${round + 1}:`);
-		console.log(`You -> ${humanChoice}`);
-		console.log(`Computer -> ${computerChoice}`);
-		console.log("----------$$$----------");
-		playRound(computerChoice, humanChoice);
-	}
-	console.log("----------$$$----------");
-	if (humanScore > computerScore){
-		alert("Congratulations!!! You won the game");
-		console.log(`Great Job! You won (${humanScore} - ${computerScore})`);
-	}
-	else if (computerScore > humanScore){
-		alert("You Died!!! Better Luck next Time");
-		console.log(`You lost (${humanScore} - ${computerScore})`);
-	}
-	else {
-		alert("It's a Draw. Try Again");
-		console.log("It's a Draw. Try Again");
-	}
-
-	// initialize to Restart the entire game
-	startGame.textContent = "Restart";
-	computerScore = humanScore = 0;
-}
-
-// Adjust the button(Start Game, Restart) to start the Game on-click
-const startGame = document.querySelector("#playGame");
-startGame.addEventListener("click", playGame);
+		
+function printMessage(message1, message2, id) {
+	const output = document.getElementById(id);
+	output.textContent = `${message1.toUpperCase()}`;
+	output.innerHTML += `<p>${message2.toUpperCase()}</p>`;
+	output.scrollTop = output.scrollHeight; // Auto-scroll to the bottom
+};
