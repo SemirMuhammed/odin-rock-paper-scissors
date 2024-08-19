@@ -1,91 +1,84 @@
-// Logic to get Computer Choice
+const userChoice = document.getElementById('userChoice');
+const choiceElements = document.querySelectorAll("#userChoice .choice");
+const userOutput = document.getElementById("human");
+const computerOutput = document.getElementById("computer");
+const computerLives = document.getElementById("computerLive");
+const userLives = document.getElementById("userLive");
+const restart = document.getElementById("restart");
+const resultText = document.getElementById("result-text");
+const endGameMsg = document.getElementById("endGameMsg");
+const endGameText = document.getElementById("endGameText");
+const endGameBtn = document.getElementById("endGameBtn");
+const endGameExit = document.getElementById("endGameExit");
+
+function restartGame() {
+	userLives.textContent = "❤️".repeat(5);
+	computerLives.textContent = "❤️".repeat(5);
+	choiceElements.forEach( (item) => item.disabled = false);
+	endGameMsg.style.display = "none";
+	document.body.classList.remove("blur");
+	resultText.textContent = "Choose Your Weapon";
+}
+
 function getComputerChoice(){
 	const randomNumber = Math.random() * 3;
 
 	if (randomNumber <= 1) {
-		const computerOutput = document.getElementById("computer");
 		computerOutput.textContent = "✊";
-		return "✊";
 	}
 	else if (randomNumber <= 2) {
-		const computerOutput = document.getElementById("computer");
 		computerOutput.textContent = "🖐️";
-		return "🖐️";
 	}
 	else {
-		const computerOutput = document.getElementById("computer");
 		computerOutput.textContent = "✌️";
-		return "✌️";
 	}
+
+	return computerOutput.textContent;
 }
 
-let userChoice = "✊"; // default value
-let computerChoice = "✊";
-const userRock = document.getElementById('rock');
-const userPaper = document.getElementById('paper');
-const userScissors = document.getElementById('scissors');
-
-userRock.addEventListener("click", () => {
-	userChoice = "✊";
-	getHumanChoice();
-	computerChoice = getComputerChoice();
-	playRound(userChoice, computerChoice);
-});
-
-userPaper.addEventListener("click", () => {
-	userChoice = "🖐️";
-	getHumanChoice();
-	computerChoice = getComputerChoice();
-	playRound(userChoice, computerChoice);
-});
-
-userScissors.addEventListener("click", () => {
-	userChoice = "✌️";
-	getHumanChoice();
-	computerChoice = getComputerChoice();
-	playRound(userChoice, computerChoice);
-});
-
-function getHumanChoice() {
-	const userOutput = document.getElementById("human");
-	userOutput.textContent = userChoice;
-}
-
-let computerLives = 5;
-let userLives = 5;
-function playRound(userChoice, computerChoice) {
-	const scoreBoard = document.querySelector(".scoreboard");
+function playRound(userChoice, computerChoice, lives = 5) {
 	if (
 		(userChoice === "✊" && computerChoice === "✌️") ||
 		(userChoice === "🖐️" && computerChoice === "✊") ||
 		(userChoice === "✌️" && computerChoice === "🖐️")
 	) {
-		computerLives--;
-		printMessage(`Computer Lives: ${computerLives}`, `User Lives: ${userLives}`, 'score-board');
+		computerLives.textContent = computerLives.textContent.slice(2);
+		resultText.textContent = `${userChoice} beats ${computerChoice}`;
 	}
-	else if ( userChoice === computerChoice)
-		printMessage(`Computer Lives: ${computerLives}`, `User Lives: ${userLives}`, 'score-board');
+	else if ( userChoice === computerChoice) {
+		//resultText.textContent = `${userChoice} is ties with ${computerChoice}`;
+		resultText.textContent = "It's a draw. Go Again!";
+	}
 	else {
-		userLives--;
-		printMessage(`Computer Lives: ${computerLives}`, `User Lives: ${userLives}`, 'score-board');
+		userLives.textContent = userLives.textContent.slice(2);
+		resultText.textContent = `${userChoice} is beaten by ${computerChoice}`;
 	}
-	if (computerLives == 0) {
-		const output = document.getElementById('score-board');
-		output.innerHTML += `<p>Congratulations!!! You Won the Game</p>`;
-		output.scrollTop = output.scrollHeight; // Auto-scroll to the bottom
-		computerLives = userLives = 5;
+
+	if (userLives.textContent === "") {
+		popupMessage("You Lost!");
 	}
-	else if (userLives == 0) {
-		const output = document.getElementById('score-board');
-		output.innerHTML += `<p>Ops!!! You lost the Game</p>`;
-		output.scrollTop = output.scrollHeight; // Auto-scroll to the bottom
-		computerLives = userLives = 5;
+	else if (computerLives.textContent === "") {
+		popupMessage("You Won!");
 	}
 }
-		
-function printMessage(message1, message2, id) {
-	const output = document.getElementById(id);
-	output.textContent = `${message1.toUpperCase()}`;
-	output.innerHTML += `<p>${message2.toUpperCase()}</p>`;
-	output.scrollTop = output.scrollHeight; // Auto-scroll to the bottom
-};
+
+function popupMessage(message) {
+	endGameMsg.style.display = "flex";
+	document.body.classList.add("blur");
+	endGameText.textContent = message;
+
+	endGameBtn.addEventListener("click", restartGame);
+	endGameExit.addEventListener("click", () => {
+	endGameMsg.style.display = "none";
+	document.body.classList.remove("blur");
+	});
+}
+
+restart.addEventListener("click", restartGame);
+userChoice.addEventListener("click", (event) => {
+	userOutput.textContent = event.target.textContent;
+	playRound(event.target.textContent, getComputerChoice());
+	if (!userLives.textContent || !computerLives.textContent) {
+		choiceElements.forEach( (item) => item.disabled = true);
+	}
+});

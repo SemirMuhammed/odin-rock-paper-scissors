@@ -10,18 +10,32 @@
 
 <body>
 	<h1 id="title">Rock Paper Scissors</h1>
-	<div class="result-container">
+	<h2 id="result-text">Choose Your Weapon</h2>
+	<div class=" result-container">
 		<div id="human">✊</div>
 		<div id="vs">🆚</div>
 		<div id="computer">✊</div>
 	</div>
-	<div class="choice-container">
-		<button type="button" id="rock">✊</button>
-		<button type="button" id="paper">🖐️</button>
-		<button type="button" id="scissors">✌️</button>
+	<div class="playerLives">
+		<div class="userLive">👤<span id="userLive">❤️❤️❤️❤️❤️</span></div>
+		<button id="restart">↻</button>
+		<div class="computerLive">🤖<span id="computerLive">❤️❤️❤️❤️❤️</span></div>
 	</div>
-	<div class="scoreboard" id="score-board"></div>
-	<div class="footer">Copyright © 2024</div>
+	<div class="choice-container" id="userChoice">
+		<button type="button" id="rock" class="choice">✊</button>
+		<button type="button" id="paper" class="choice">🖐️</button>
+		<button type="button" id="scissors" class="choice">✌️</button>
+	</div>
+	<div class="end-game-message" id="endGameMsg">
+		<button id="endGameExit">X</button>
+		<p id="endGameText"></p>
+		<button id="endGameBtn">↻</button>
+
+	</div>
+
+	<div class="footer">Copyright © SemirMuhammed <a
+			href="https://github.com/SemirMuhammed/odin-rock-paper-scissors.git" target=_blank
+			rel="noopener noreferrer"><img src="./github-logo.svg" alt="GitHub Logo"></a></div>
 	<script src="main.js"></script>
 </body>
 
