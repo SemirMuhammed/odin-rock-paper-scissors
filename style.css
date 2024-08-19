@@ -60,10 +60,11 @@ body {
 
 .playerLives div {
 	background-color: #EDF4F2;
-	width: 250px;
+	width: 260px;
 	border-radius: 20px;
 	padding: 16px;
-	font-size: 40px;
+	display: flex;
+	gap: 16px;
 }
 
 .playerLives button {

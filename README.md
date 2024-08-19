@@ -2,18 +2,15 @@
 
 ## Introduction
 
-This project is done for educational purposes. I'm learning Full Stack development on The Odin Project platform. This Project is done to implement my learning on javascript.
+Rock, paper, scissors (also known as Rochambeau, Roshambo, or Janken) is a fun and easy hand game that anyone can learn and enjoy.
+
+Live Demo - [Link](https://semirmuhammed.github.io/odin-rock-paper-scissors/)
 
 ## Technology Used
 
 Html, Css and Javascript
 
-## Method
-
-The Game starts on click of a button. Then prompts user to input Rock, Paper or Scissor. And then matchs the input with the computer generated option. Then decides it player won, lost or draw. There is 5 rounds. Whoever won the most round wins the game.
-
 ## Author
 
-Semir Muhammed
+Semir Muhammed [GitHub](https://github.com/semirmuhammed)
 
-Live Demo - [Link](https://semirmuhammed.github.io/odin-rock-paper-scissors/)
