@@ -15,3 +15,5 @@ The Game starts on click of a button. Then prompts user to input Rock, Paper or 
 ## Author
 
 Semir Muhammed
+
+Live Demo - [Link](https://semirmuhammed.github.io/odin-rock-paper-scissors/)
